@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-feature android:name="android.hardware.telephony" android:required="true" />
+
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -21,7 +23,7 @@
         </activity>
 
         <receiver
-            android:name=".SMSReceiver"
+            android:name=".SmsReceiver"
             android:permission="android.permission.BROADCAST_SMS"
             android:enabled="true"
             android:exported="true">
