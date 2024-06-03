@@ -48,10 +48,16 @@ public class SmsReceiver extends BroadcastReceiver {
         String telegramToken = preferences.getString(context.getString(R.string.key_telegram_apikey), "");
         boolean enableWeb = preferences.getBoolean(context.getString(R.string.key_enable_web), false);
         String targetWeb = preferences.getString(context.getString(R.string.key_target_web), "");
+        boolean enableEmail = preferences.getBoolean(context.getString(R.string.key_enable_email), false);
+        String fromEmailAddress = preferences.getString(context.getString(R.string.key_email_from_address), "");
+        String toEmailAddress = preferences.getString(context.getString(R.string.key_email_to_address), "");
+        String smtpHost = preferences.getString(context.getString(R.string.key_email_submit_host), "");
+        short smtpPort = Short.parseShort(preferences.getString(context.getString(R.string.key_email_submit_port), "0"));
+        String smtpPassword = preferences.getString(context.getString(R.string.key_email_submit_password), "");
 
         // TODO: add a dedicated preference item for reverse forwarding
         // Disables reverse forwarding too if no forwarders is enabled.
-        if (!enableSms && !enableTelegram && !enableWeb) return;
+        if (!enableSms && !enableTelegram && !enableWeb && !enableEmail) return;
 
         ArrayList<Forwarder> forwarders = new ArrayList<>(1);
         if (enableSms && !targetNumber.isEmpty()) {
@@ -62,6 +68,17 @@ public class SmsReceiver extends BroadcastReceiver {
         }
         if (enableWeb && !targetWeb.isEmpty()) {
             forwarders.add(new JsonWebForwarder(targetWeb));
+        }
+        if (enableEmail && !fromEmailAddress.isEmpty() && !toEmailAddress.isEmpty() &&
+                !smtpHost.isEmpty() && smtpPort != 0 && !smtpPassword.isEmpty()) {
+            forwarders.add(new EmailForwarder(
+                    fromEmailAddress,
+                    toEmailAddress,
+                    smtpHost,
+                    smtpPort,
+                    fromEmailAddress,
+                    smtpPassword
+            ));
         }
 
         if (senderNumber.equals(targetNumber)) {

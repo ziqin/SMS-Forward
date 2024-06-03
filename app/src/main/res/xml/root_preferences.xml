@@ -68,4 +68,47 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/header_email">
+        <SwitchPreferenceCompat
+            android:key="@string/key_enable_email"
+            app:iconSpaceReserved="false"
+            app:title="@string/enable_email" />
+        <EditTextPreference
+            android:defaultValue=""
+            android:inputType="textEmailAddress"
+            android:key="@string/key_email_from_address"
+            android:summary="@string/from_address_summary"
+            android:title="@string/from_address"
+            app:iconSpaceReserved="false" />
+        <EditTextPreference
+            android:defaultValue=""
+            android:inputType="textEmailAddress"
+            android:key="@string/key_email_to_address"
+            android:summary="@string/to_address_summary"
+            android:title="@string/to_address"
+            app:iconSpaceReserved="false" />
+        <EditTextPreference
+            android:defaultValue=""
+            android:key="@string/key_email_submit_host"
+            android:summary="@string/smtp_submission_server_summary"
+            android:title="@string/smtp_submission_server"
+            app:iconSpaceReserved="false" />
+        <EditTextPreference
+            android:defaultValue="587"
+            android:inputType="numberDecimal"
+            android:key="@string/key_email_submit_port"
+            android:summary="@string/smtp_submission_port_summary"
+            android:title="@string/smtp_submission_port"
+            app:iconSpaceReserved="false" />
+        <EditTextPreference
+            android:defaultValue=""
+            android:inputType="textPassword"
+            android:key="@string/key_email_submit_password"
+            android:summary="@string/smtp_password_summary"
+            android:title="@string/smtp_password"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

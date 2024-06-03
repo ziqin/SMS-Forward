@@ -25,4 +25,24 @@
     <string name="key_target_web">key_target_web</string>
     <string name="target_title_web">Target Web URL</string>
     <string name="target_summary_web">Example: https://site.com/api\nThis app will send POST request on receive SMS, request body example:\n{ "from": "10000", "message": "Hello" }</string>
+
+    <!-- Email -->
+    <string name="key_enable_email" translatable="false">key_enable_email</string>
+    <string name="key_email_from_address" translatable="false">key_email_from_address</string>
+    <string name="key_email_to_address" translatable="false">key_email_to_address</string>
+    <string name="key_email_submit_host" translatable="false">key_email_submit_host</string>
+    <string name="key_email_submit_port" translatable="false">key_email_submit_port</string>
+    <string name="key_email_submit_password" translatable="false">key_email_submit_password</string>
+    <string name="header_email">Forward via Email</string>
+    <string name="enable_email">Enable Email</string>
+    <string name="from_address">Sender address</string>
+    <string name="from_address_summary">Example: from@example.com</string>
+    <string name="to_address">Recipient address</string>
+    <string name="to_address_summary">Example: to@example.com</string>
+    <string name="smtp_submission_server">SMTP submission server</string>
+    <string name="smtp_submission_server_summary">Example: smtp.example.com</string>
+    <string name="smtp_submission_port">SMTP submission port</string>
+    <string name="smtp_submission_port_summary">Usually 465 or 587</string>
+    <string name="smtp_password">Password</string>
+    <string name="smtp_password_summary">Sender’s password for submitting emails to sent</string>
 </resources>
