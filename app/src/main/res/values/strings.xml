@@ -7,7 +7,7 @@
     <string name="enable_sms">Enable SMS</string>
     <string name="key_target_sms" translatable="false">key_sms_target</string>
     <string name="target_title_sms">Target phone number</string>
-    <string name="target_summary_sms">example: +86 10000</string>
+    <string name="target_summary_sms">Example: +86 10000</string>
 
     <!-- Telegram -->
     <string name="key_enable_telegram" translatable="false">key_enable_telegram</string>
@@ -16,7 +16,7 @@
     <string name="key_target_telegram" translatable="false">key_target_telegram</string>
     <string name="key_telegram_apikey" translatable="false">key_telegram_apikey</string>
     <string name="target_title_telegram">Target Telegram ID</string>
-    <string name="title_telegram_apikey">Telegram API KEY</string>
+    <string name="title_telegram_apikey">Telegram API token</string>
 
     <!-- Web -->
     <string name="key_enable_web" translatable="false">key_enable_web</string>
