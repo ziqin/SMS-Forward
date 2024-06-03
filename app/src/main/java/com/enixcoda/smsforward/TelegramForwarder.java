@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import java.nio.charset.StandardCharsets;
 
 public final class TelegramForwarder extends AbstractWebForwarder {
-    private static final String TAG = TelegramForwarder.class.getCanonicalName();
+    private static final String TAG = "TelegramForwarder";
 
     private final String chatId;
 

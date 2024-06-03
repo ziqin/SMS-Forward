@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import java.nio.charset.StandardCharsets;
 
 public final class JsonWebForwarder extends AbstractWebForwarder {
-    private static final String TAG = JsonWebForwarder.class.getSimpleName();
+    private static final String TAG = "JsonWebForwarder";
 
     public JsonWebForwarder(String endpoint) {
         super(endpoint);

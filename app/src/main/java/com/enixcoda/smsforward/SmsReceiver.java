@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class SmsReceiver extends BroadcastReceiver {
-    private static final String TAG = SmsReceiver.class.getSimpleName();
+    private static final String TAG = "SmsReceiver";
     private static final Pattern REVERSE_MESSAGE_PATTERN = Pattern.compile("To (\\+?\\d+?):\\n((.|\\n)*)");
 
     private final Executor forwarderExecutor = Executors.newCachedThreadPool();
@@ -91,7 +91,7 @@ public class SmsReceiver extends BroadcastReceiver {
                     try {
                         SmsForwarder.sendSmsTo(forwardNumber, forwardContent);
                     } catch (RuntimeException e) {
-                        Log.e(SmsForwarder.class.getSimpleName(), "Failed to send SMS", e);
+                        Log.e(TAG, "Failed to send SMS", e);
                     }
                 });
             }
@@ -102,7 +102,7 @@ public class SmsReceiver extends BroadcastReceiver {
                     try {
                         forwarder.forward(senderNumber, messageContent);
                     } catch (Exception e) {
-                        Log.e(forwarder.getClass().getSimpleName(), "Failed to forward SMS", e);
+                        Log.e(TAG, "Failed to forward SMS", e);
                     }
                 });
             }
