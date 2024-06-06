@@ -22,12 +22,12 @@ public final class EmailForwarder implements Forwarder {
         try {
             this.fromAddress = new InternetAddress(fromAddress);
         } catch (AddressException e) {
-            throw new IllegalArgumentException("Invalid localAddress", e);
+            throw new IllegalArgumentException("Invalid fromAddress", e);
         }
         try {
             this.toAddresses = InternetAddress.parse(toAddresses);
         } catch (AddressException e) {
-            throw new IllegalArgumentException("Invalid targetAddress", e);
+            throw new IllegalArgumentException("Invalid toAddresses", e);
         }
 
         props = new Properties();
@@ -35,15 +35,19 @@ public final class EmailForwarder implements Forwarder {
         props.setProperty("mail.smtp.connectiontimeout", "10000");
         props.setProperty("mail.smtp.timeout", "10000");
         props.setProperty("mail.smtp.writetimeout", "10000");
+        props.setProperty("mail.smtp.allow8bitmime", "true");
         props.setProperty("mail.smtp.host", smtpHost);
         props.setProperty("mail.smtp.port", Short.toString(port));
         props.setProperty("mail.smtp.auth", "true");
+
+        // https://www.oracle.com/docs/tech/java/sslnotes142.txt
         props.setProperty("mail.smtp.ssl.checkserveridentity", "true");
         if (port == 465) {
             // Implicit TLS
             props.setProperty("mail.smtp.ssl.enable", "true");
         } else {
             props.setProperty("mail.smtp.starttls.enable", "true");
+            props.setProperty("mail.smtp.starttls.required", "true");
         }
 
         PasswordAuthentication authentication = new PasswordAuthentication(username, password);
