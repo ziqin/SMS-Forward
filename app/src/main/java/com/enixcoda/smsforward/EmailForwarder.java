@@ -1,6 +1,9 @@
 package com.enixcoda.smsforward;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
@@ -12,6 +15,8 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
 public final class EmailForwarder implements Forwarder {
+    private static final Pattern SENDER_NAME_PATTERN = Pattern.compile("^【(.+)】.*");
+
     private final InternetAddress fromAddress;
     private final InternetAddress[] toAddresses;
     private final Properties props;
@@ -52,9 +57,17 @@ public final class EmailForwarder implements Forwarder {
 
     @Override
     public void forward(String fromNumber, String content) throws MessagingException {
+        Matcher senderNameMatcher = SENDER_NAME_PATTERN.matcher(content);
+        String senderName = senderNameMatcher.matches() ? senderNameMatcher.group(1) : fromNumber;
+        InternetAddress prettyFromAddress;
+        try {
+            prettyFromAddress = new InternetAddress(fromAddress.getAddress(), senderName, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            prettyFromAddress = fromAddress;
+        }
         Session session = Session.getInstance(props, authenticator);
         MimeMessage message = new MimeMessage(session);
-        message.setFrom(fromAddress);
+        message.setFrom(prettyFromAddress);
         message.addRecipients(Message.RecipientType.TO, toAddresses);
         message.setSubject("SMS from: " + fromNumber);
         message.setText(content, "UTF-8");
