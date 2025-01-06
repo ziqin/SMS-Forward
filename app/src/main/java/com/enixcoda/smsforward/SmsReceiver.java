@@ -18,6 +18,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.InternetAddress;
+
 public class SmsReceiver extends BroadcastReceiver {
     private static final String TAG = "SmsReceiver";
     private static final Pattern REVERSE_MESSAGE_PATTERN = Pattern.compile("To (\\+?\\d+?):\\n((.|\\n)*)");
@@ -54,6 +57,7 @@ public class SmsReceiver extends BroadcastReceiver {
         String smtpHost = preferences.getString(context.getString(R.string.key_email_submit_host), "");
         short smtpPort = Short.parseShort(preferences.getString(context.getString(R.string.key_email_submit_port), "0"));
         String smtpPassword = preferences.getString(context.getString(R.string.key_email_submit_password), "");
+        String smtpUsernameStyle = preferences.getString(context.getString(R.string.key_email_username_style), "full");
 
         // TODO: add a dedicated preference item for reverse forwarding
         // Disables reverse forwarding too if no forwarders is enabled.
@@ -71,12 +75,23 @@ public class SmsReceiver extends BroadcastReceiver {
         }
         if (enableEmail && !fromEmailAddress.isEmpty() && !toEmailAddress.isEmpty() &&
                 !smtpHost.isEmpty() && smtpPort != 0 && !smtpPassword.isEmpty()) {
+            InternetAddress fromAddress;
+            InternetAddress[] toAddresses;
+            try {
+                fromAddress = new InternetAddress(fromEmailAddress, true);
+                toAddresses = InternetAddress.parse(toEmailAddress);
+            } catch (AddressException e) {
+                throw new IllegalArgumentException("Invalid email address", e);
+            }
+            String username = "full".equals(smtpUsernameStyle)
+                    ? fromAddress.getAddress()
+                    : fromAddress.getAddress().substring(0, fromAddress.getAddress().indexOf("@"));
             forwarders.add(new EmailForwarder(
-                    fromEmailAddress,
-                    toEmailAddress,
+                    fromAddress,
+                    toAddresses,
                     smtpHost,
                     smtpPort,
-                    fromEmailAddress,
+                    username,
                     smtpPassword
             ));
         }

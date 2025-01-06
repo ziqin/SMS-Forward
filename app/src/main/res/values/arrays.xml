@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="option_smtp_username_style_titles">
+        <item>Full RFC822 address</item>
+        <item>Only local part</item>
+    </string-array>
+    <string-array name="option_smtp_username_style_values">
+        <item>full</item>
+        <item>local</item>
+    </string-array>
+</resources>

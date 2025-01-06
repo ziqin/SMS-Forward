@@ -8,7 +8,6 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
 import jakarta.mail.Transport;
-import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
@@ -18,17 +17,9 @@ public final class EmailForwarder implements Forwarder {
     private final Properties props;
     private final Authenticator authenticator;
 
-    public EmailForwarder(String fromAddress, String toAddresses, String smtpHost, short port, String username, String password) {
-        try {
-            this.fromAddress = new InternetAddress(fromAddress);
-        } catch (AddressException e) {
-            throw new IllegalArgumentException("Invalid fromAddress", e);
-        }
-        try {
-            this.toAddresses = InternetAddress.parse(toAddresses);
-        } catch (AddressException e) {
-            throw new IllegalArgumentException("Invalid toAddresses", e);
-        }
+    public EmailForwarder(InternetAddress fromAddress, InternetAddress[] toAddresses, String smtpHost, short port, String username, String password) {
+        this.fromAddress = fromAddress;
+        this.toAddresses = toAddresses;
 
         props = new Properties();
         props.setProperty("mail.transport.protocol", "smtp");

@@ -102,6 +102,15 @@
             android:summary="@string/smtp_submission_port_summary"
             android:title="@string/smtp_submission_port"
             app:iconSpaceReserved="false" />
+        <ListPreference
+            android:defaultValue="full"
+            android:key="@string/key_email_username_style"
+            android:title="@string/smtp_username_style"
+            android:summary="@string/smtp_username_style_summary"
+            android:entries="@array/option_smtp_username_style_titles"
+            android:entryValues="@array/option_smtp_username_style_values"
+            app:iconSpaceReserved="false"
+            />
         <EditTextPreference
             android:defaultValue=""
             android:inputType="textPassword"
